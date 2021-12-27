@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Build
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Docker meta (1)
+        id: docker_meta_1
+        uses: docker/metadata-action@v3
+        with:
+          images: cartesi/test
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+      - name: Docker meta (2)
+        id: docker_meta_2
+        uses: docker/metadata-action@v3
+        with:
+          images: cartesi/test
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern=subproduct-{{version}}
