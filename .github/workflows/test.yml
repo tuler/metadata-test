@@ -22,3 +22,11 @@ jobs:
           tags: |
             type=ref,event=branch
             type=semver,pattern=subproduct-{{version}}
+      - name: Docker meta (3)
+        id: docker_meta_3
+        uses: docker/metadata-action@v3
+        with:
+          images: cartesi/test
+          tags: |
+            type=ref,event=branch
+            type=match,pattern=subproduct-v(.*),group=1
